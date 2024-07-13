@@ -7,16 +7,22 @@ import Appfooter from "./components/Appfooter";
 //import app header
 import Appheader from "./components/Appheader";
 
-export default function App(): React.JSX.Element {
+//import content
+import Content from "./components/Content";
 
+export default function App(): React.JSX.Element {
+  const name = 'PONGPAI sodsong';
     //create function that show hello
     const onCLickMe = ()=> {
-      Alert.alert("HELLO React.jf!!");
+      Alert.alert("HELLO ",name );
+      
+      
     }
 
     //create array obj
     const userlist = [{id:123,name:'John',},{id:456,name:'Ryan',}]
 
+   
 
 
 
@@ -26,33 +32,19 @@ export default function App(): React.JSX.Element {
 
     //uxui
   return (
+   
     <View style={styles.container}>
-      <Appheader title={'HEADER'} year={2018}></Appheader>
-      <Appheader title={'HEADER2'}></Appheader>
-      <Text>Hello ReactNative!</Text>
+     <Appheader name={'PONGPAI SODSONG'}></Appheader>
+      <Text>Message from App.tsx</Text>
      
-      { userlist.map(
-            (data,index)=>{
-              return(
-                <Text key={data.id}>
-                  No.{index+1}   ID.{data.id}  Name.{data.name}
-
-                </Text>
-              )
-            }
-          )
-      }
-
-
+<Content/>
       <Button
         title="click me"
         onPress={onCLickMe}
-        color='red'
-        // onPress={() => {
-        //   Alert.alert("React native is fun!!");
-        // }}
+
+
       />
-      <Appfooter/>
+    <Appfooter/>
     </View>
   );
 }
@@ -61,7 +53,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
-    alignItems: "center",
     justifyContent: "center",
   },
 });

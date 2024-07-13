@@ -2,29 +2,12 @@ import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 
 const Appfooter = (): React.JSX.Element => {
-    //create constant name hello normal way
-    const Hello = "hello tni footer";
-    //other way 
-    const hello2 = <Text>Hello JSX</Text>;
-    const islogin = true; //for condition rendering
 
     //uxui
   return (
-    <View>
-        <Text style={styles.myText}>
-             {Hello} Date : {new Date().toLocaleDateString()}
-        </Text>
-      {hello2}
-        {/* if1 */}
-        {islogin && <Text>Welcome Boss</Text>}
-          {/* if2 */}
-        {
-            islogin==true 
-            ? <Text>Welcome marry</Text>
-            :   <Text>NO LOGIN</Text>
-        }
-
-
+    <View style={styles.footer}>
+  
+    <Text style={styles.footerText}>Thai-Nichi InstiTude of Technology</Text>
 
     </View>
   );
@@ -33,5 +16,20 @@ const Appfooter = (): React.JSX.Element => {
 export default Appfooter;
 
 const styles = StyleSheet.create({
-  myText: { color: "red" },
-});
+    footer: {
+    backgroundColor: '#f8f8f8',
+    padding: 60,
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'relative',
+    left: 0,
+    right: 0,
+    bottom: 0,
+    },
+    footerText: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#333',
+    },
+    });
+    
