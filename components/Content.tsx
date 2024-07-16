@@ -2,7 +2,7 @@ import { StyleSheet, Text, View ,Button,Alert} from 'react-native'
 import React from 'react'
 
 const Content = () => {
-  const name  ='Pongpai';
+  const name  ='Pongpai Sodsong';
   const onCLickMe = ()=> {
     Alert.alert("HELLO ",name );
     
@@ -12,7 +12,7 @@ const Content = () => {
 
 
     <View style={styles.content}>
-      <Text style={styles.text}>PONGPAI SODSONG</Text>
+      <Text style={styles.text}>Message from App.tsx</Text>
       <Button
         title="click me"
         onPress={onCLickMe}

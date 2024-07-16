@@ -6,7 +6,8 @@ const Appheader = ({name}:AppHeaderProps) : React.JSX.Element  => {
   return (
     <View style={styles.header}>
       <Text style={styles.headerText}>{name} 
-      </Text><Text> Message from App.tsx</Text>
+      </Text>
+      <Text style={styles.subtitleText}> Message from App.tsx</Text>
       
     </View>
   )
@@ -33,3 +34,4 @@ const styles = StyleSheet.create({
   color: '#fff',
   },
   });
+  

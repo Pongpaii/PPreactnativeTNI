@@ -13,11 +13,7 @@ import Content from "./components/Content";
 export default function App(): React.JSX.Element {
   const name = 'PONGPAI sodsong';
     //create function that show hello
-    const onCLickMe = ()=> {
-      Alert.alert("HELLO ",name );
-      
-      
-    }
+   
 
     //create array obj
     const userlist = [{id:123,name:'John',},{id:456,name:'Ryan',}]
@@ -35,15 +31,10 @@ export default function App(): React.JSX.Element {
    
     <View style={styles.container}>
      <Appheader name={'PONGPAI SODSONG'}></Appheader>
-      <Text>Message from App.tsx</Text>
+      
      
 <Content/>
-      <Button
-        title="click me"
-        onPress={onCLickMe}
-
-
-      />
+ 
     <Appfooter/>
     </View>
   );
