@@ -13,10 +13,10 @@ const [img,setImg] = useState(profileImage);
 
 //create new arrow function to changename and img
 const handleChangename =()=>{
-    setName("New Name")
+    setName(name=="Pongpai Sodsong"?"No Name":"Pongpai Sodsong")
 }
 const handleChangeImg = () =>{
-    setImg(profileImage2)
+    setImg(img== profileImage?profileImage2:profileImage)
 }
 
   //in view <Image source={require('../assets/pfp.jpeg')}></Image> but not for dev
@@ -29,6 +29,7 @@ const handleChangeImg = () =>{
         <View >
 
         <Text style={styles.profileName}>{name}</Text>
+
         <Button title="Change Name" onPress={(handleChangename)}></Button>
         <Text style={styles.profileName}></Text>
         <Button title="Change Img" onPress={(handleChangeImg)}></Button>
