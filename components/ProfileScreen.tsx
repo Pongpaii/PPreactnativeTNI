@@ -1,18 +1,39 @@
-import { View, Text, Image, StyleSheet } from "react-native";
-import {styles}from '../styles/styles'
-import React from "react";
+import { View, Text, Image, Button } from "react-native";
+import { styles } from "../styles/styles";
+import React, { useState } from "react";
 // : React.JSX.Element = force into ts.
 
 const ProfileScreen = (): React.JSX.Element => {
   const profileImage = require("../assets/pfp.jpeg"); //create profileimage
+  const profileImage2 = require("../assets/pfpnew.jpeg"); //create profileimage
+
+  //set use state
+const [name,setName] = useState('Pongpai Sodsong');
+const [img,setImg] = useState(profileImage);
+
+//create new arrow function to changename and img
+const handleChangename =()=>{
+    setName("New Name")
+}
+const handleChangeImg = () =>{
+    setImg(profileImage2)
+}
 
   //in view <Image source={require('../assets/pfp.jpeg')}></Image> but not for dev
 
   return (
     <View style={styles.container}>
       <View style={styles.profileContainer}>
-        <Image style={styles.profileImg} source={profileImage} />
-        <Text style={styles.profileName}>Pongpai Sodsong</Text>
+        
+        <Image style={styles.profileImg} source={img} />
+        <View >
+
+        <Text style={styles.profileName}>{name}</Text>
+        <Button title="Change Name" onPress={(handleChangename)}></Button>
+        <Text style={styles.profileName}></Text>
+        <Button title="Change Img" onPress={(handleChangeImg)}></Button>
+        </View>
+
       </View>
     </View>
   );

@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
       borderRadius:10,
       backgroundColor:'lightyellow',
       elevation:5,
-      marginTop:50
+      marginTop:50,
     },
     profileName:{
       fontWeight:'bold',
