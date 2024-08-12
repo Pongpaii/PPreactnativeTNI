@@ -10,7 +10,9 @@ const Login = (): React.JSX.Element => {
   const [password, setPassword] = useState("");
 
   const validateEmail = (email: string): boolean => {
-    const recheckEmail = /\S+@\S+\.\S+/;
+    const recheckEmail = /\S+@\S+\.\S+/; 
+    //regex for search and detect (text) /S+ =text that dont have spacebar @ = check @ and .  ex. p@g.c
+
     return recheckEmail.test(email);
   };
 
