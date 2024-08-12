@@ -4,13 +4,15 @@ import ProfileScreen from "./components/ProfileScreen";
 import UseEffectEx from "./components/UseEffectEx";
 import FlatlistExample from "./components/FlatlistExample";
 import FlatListcallBackend from "./components/FlatListcallBackend";
+import { StatusBar } from "expo-status-bar";
+import NewsApp from "./components/NewsApp";
 
 const App = (): React.JSX.Element => {
   return (
     <View>
       
-        <FlatlistExample/>
-        <FlatListcallBackend/>
+       <NewsApp/>
+       <StatusBar style="auto"/>
     </View>
   );
 };
