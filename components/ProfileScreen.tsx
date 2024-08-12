@@ -1,6 +1,8 @@
 import { View, Text, Image, Button } from "react-native";
 import { styles } from "../styles/styles";
 import React, { useState } from "react";
+import Login from "./Login";
+import Content from "./Content";
 // : React.JSX.Element = force into ts.
 
 const ProfileScreen = (): React.JSX.Element => {
@@ -36,7 +38,10 @@ const handleChangeImg = () =>{
         </View>
 
       </View>
+      <Login/>
+   
     </View>
+    
   );
 };
 //https://reactnative.dev/docs/colors#named-colors

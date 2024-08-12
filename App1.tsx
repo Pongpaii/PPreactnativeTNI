@@ -1,41 +1,45 @@
-import { StatusBar } from "expo-status-bar";
-import React from "react";
-import { StyleSheet, Text, View, Button, Alert } from "react-native"; //import component
-//import style that I create in my folder (appgooter)
-import Appfooter from "./components/Appfooter";
-
-//import app header
+import React, { useState, useEffect } from "react";
+import { View, StyleSheet, TextInput, Alert} from "react-native";
 import Appheader from "./components/Appheader";
-
-//import content
 import Content from "./components/Content";
+import Appfooter from "./components/Appfooter";
+import { stylesPractice } from "./styles/styles";
 
-export default function App(): React.JSX.Element {
-  const name = 'PONGPAI sodsong';
-    //create function that show hello
-   
+function App(): React.JSX.Element {
+  const [fullname, setFullname] = useState("");
+  const [message, setMessage] = useState("Message from App.tsx");
+  const [footerMessage, setFooterMessage] = useState(
+    "Thai-Nichi Institute of Technology"
+  );
 
-    //create array obj
-    const userlist = [{id:123,name:'John',},{id:456,name:'Ryan',}]
+  useEffect(() => {
+    console.log("Component has mounted");
+  }, []);
 
-   
+  useEffect(() => {
+    console.log(`Fullname has changed to : ${fullname}`);
+  }, [fullname]); //This will run whenever 'fullname' changes
 
+  const handleButtonClick = () => {
+    Alert.alert("Hello",`Input your fullname : ${fullname}`);
+  };
 
-
-
-
-
-
-    //uxui
   return (
-   
     <View style={styles.container}>
-     <Appheader name={'PONGPAI SODSONG'}></Appheader>
+      <Appheader fullname={fullname} message={message} />
+      {/* <Content message={message} fullname={fullname} /> */}
+      <Content message={message} onButtonClick = {handleButtonClick} />
+      <Appfooter footerMessage={footerMessage} />
+
+
+      <TextInput
+        style={stylesPractice.input}
+        placeholder="Enter your fullname"
+        value={fullname}
+        onChangeText={setFullname}
+      />
+
       
-     
-<Content/>
- 
-    <Appfooter/>
     </View>
   );
 }
@@ -43,7 +47,8 @@ export default function App(): React.JSX.Element {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
-    justifyContent: "center",
+    //  justifyContent: "space-between",
   },
 });
+
+export default App;
