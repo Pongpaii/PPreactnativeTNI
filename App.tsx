@@ -1,18 +1,17 @@
-import { View, Text } from "react-native";
+import { View} from "react-native";
 import React from "react";
-import ProfileScreen from "./components/ProfileScreen";
-import UseEffectEx from "./components/UseEffectEx";
-import FlatlistExample from "./components/FlatlistExample";
-import FlatListcallBackend from "./components/FlatListcallBackend";
-import { StatusBar } from "expo-status-bar";
-import NewsApp from "./components/NewsApp";
+import AxiosGetData from "./components/AxiosGetData";
+import AxiosPostData from "./components/AxiosPostData";
+import WeatherLondon from "./components/WeatherLondon";
+import WeatherBKK from "./components/WeatherBKK";
 
 const App = (): React.JSX.Element => {
   return (
     <View>
-      
-       <NewsApp/>
-       <StatusBar style="auto"/>
+       {/* <AxiosGetData/> */}
+       {/* <AxiosPostData/> */}
+     {/* <WeatherLondon/> */}
+     <WeatherBKK/>
     </View>
   );
 };
