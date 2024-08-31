@@ -19,10 +19,10 @@ const WeatherApp = ():React.JSX.Element => {
     }
 
     const renderWeatherComponent = ()=>{
-        if (selectedCity==='London'){
+        if (selectedCity =='London'){
             return<WeatherLondon/>;
         }
-        else if (selectedCity ==='BKK'){
+        else if (selectedCity =='BKK'){
             return<WeatherBKK/>;
         }
         return null;
@@ -36,40 +36,43 @@ const WeatherApp = ():React.JSX.Element => {
 
       <Pressable
         style={[styles.button, styles.button]}
-        onPress={() => setModalvisible(true)}
+        onPress={() => {setModalvisible(true),setSelectedCity('London');}}
       >
         <Text style={styles.buttonText}>London</Text>
 
       </Pressable>
        
+      <Pressable
+        style={[styles.button, styles.button]}
+        onPress={() => {setModalvisible(true),setSelectedCity('BKK');}}
+      >
+        <Text style={styles.buttonText} >BKK</Text>
+      </Pressable>
+
 
        <Modal  animationType="slide"
         transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => setModalvisible(!modalVisible)} >
-            <View style={styles.modalContainer}> {/*pop up */}
-          <Text style={styles.buttonText}>Hello React Native</Text>
+        visible={modalVisible}>
 
+
+            <View style={styles.modalBackground}> 
+          <View style={styles.modalContainer}>
+          {renderWeatherComponent()}
           <Pressable
             style={[styles.button, styles.closeButton]}
             onPress={() => setModalvisible(!modalVisible)}
           >{/*ปุ่มกดปิด*/}
-            <Text style={styles.closeButtonText}>Hide Modal</Text>
+            <Text style={styles.closeButtonText}>Close</Text>
           </Pressable>
+          </View>
         </View>
         </Modal>
+        
 
 
 
 
 
-
-      <Pressable
-        style={[styles.button, styles.button]}
-        onPress={() => setModalvisible(true)}
-      >
-        <Text style={styles.buttonText}>BKK</Text>
-      </Pressable>
 
     </View>
   );

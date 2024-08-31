@@ -24,7 +24,7 @@ const ModalEx = (): React.JSX.Element => {
         visible={modalVisible}
         onRequestClose={() => setModalvisible(!modalVisible)}
       >
-        <View style={styles.modalView}> {/*pop up */}
+        <View style={styles.modalView}>
           <Text style={styles.modalText}>Hello React Native</Text>
 
           <Pressable
