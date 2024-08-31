@@ -1,24 +1,29 @@
-import { View} from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import React from "react";
-import AxiosGetData from "./components/AxiosGetData";
-import AxiosPostData from "./components/AxiosPostData";
-import WeatherLondon from "./components/WeatherLondon";
-import WeatherBKK from "./components/WeatherBKK";
-import ModalEx from "./components/ModalEx";
-import WeatherApp from "./components/WeatherApp";
+import HomeScreen from "./screens/HomeScreen";
+import AboutScreen from "./screens/AboutScreen";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import CreatePostScreen from "./screens/CreatePostScreen";
 
-const App = (): React.JSX.Element => {
+
+export default function App(): React.JSX.Element {
+  //create ตัวแปร
+  const HomeStack = createNativeStackNavigator();
+
   return (
-    <View>
-       {/* <AxiosGetData/> */}
-       {/* <AxiosPostData/> */}
-     {/* <WeatherLondon/> */}
-     {/* <WeatherBKK/> */}
-     <WeatherApp/>
-     <ModalEx/>
-    </View>
+    <NavigationContainer>
+      <HomeStack.Navigator initialRouteName='Home'>
+        <HomeStack.Screen name="Home" component={HomeScreen} />
+        <HomeStack.Screen name="About" component={AboutScreen} />
+        <HomeStack.Screen name="CreatePost" component={CreatePostScreen} />
+      </HomeStack.Navigator>
+    </NavigationContainer>
   );
 };
 
 
-export default App;
+const styles = StyleSheet.create({
+
+  
+});
