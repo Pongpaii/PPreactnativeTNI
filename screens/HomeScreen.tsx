@@ -1,5 +1,6 @@
 import { View, Text, Button, StyleSheet } from "react-native";
 import React from "react";
+import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const HomeScreen = ({navigation ,route}: any): React.JSX.Element => {
   //send information to about screen
@@ -14,6 +15,7 @@ const HomeScreen = ({navigation ,route}: any): React.JSX.Element => {
 
   return (
     <View style={styles.container}>
+      <MaterialIcon name="home" size={40} color={'pink'}/>
       <Text style={styles.header}>HomeScreen</Text>
       <Button title="About Us" onPress={gotoAbout} />
 

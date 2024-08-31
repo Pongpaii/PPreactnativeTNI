@@ -13,10 +13,48 @@ export default function App(): React.JSX.Element {
 
   return (
     <NavigationContainer>
-      <HomeStack.Navigator initialRouteName='Home'>
-        <HomeStack.Screen name="Home" component={HomeScreen} />
-        <HomeStack.Screen name="About" component={AboutScreen} />
+
+       {/*  หัวใจหลักของtitle bar  GLOBAL*/}
+
+      <HomeStack.Navigator
+      screenOptions={{headerStyle:{backgroundColor:'#20b2aa'},
+      headerTintColor:'white',
+      headerTitleStyle:{fontWeight:'bold'},
+  }}
+      initialRouteName='Home'>
+
+
+
+       {/*  แต่ละหน้า*/}
+        <HomeStack.Screen 
+        name="Home" 
+        component={HomeScreen} 
+        options={{title:'หน้าหลัก'}}/>
+
+
+
+        <HomeStack.Screen 
+        name="About" 
+        component={AboutScreen} 
+        options={{ headerTitleAlign:"center"}}
+        /* options={
+          {
+            title:'เกี่ยวกับเรา',
+            headerStyle:{backgroundColor:'#20b2aa'},
+            headerTintColor:'white',
+            headerTitleStyle:{fontWeight:'bold'},
+            headerTitleAlign:"center"
+
+
+          }}
+           */
+          />
+
+
         <HomeStack.Screen name="CreatePost" component={CreatePostScreen} />
+
+
+
       </HomeStack.Navigator>
     </NavigationContainer>
   );
