@@ -84,7 +84,7 @@ const WeatherBKK = (): React.JSX.Element => {
 
   return (
     <View style={styles.container}>
-      <Text> {formatdate(state.CurrentDate)}</Text>
+      <Text style={styles.detailContainer}> {formatdate(state.CurrentDate)}</Text>
       <Text style={styles.cityName}>{state.data.name}</Text>
       <Text style={styles.temp}>{state.data.main.temp}</Text>
       <Text style={styles.weatherMain}>{state.data.weather[0].main}</Text>
@@ -186,6 +186,11 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     paddingVertical: 4,
+    backgroundColor:"#ebf9ff",
+    padding :50,
+    borderRadius:20
+    
+
   },
   detailKey: {
     fontSize: 18,
