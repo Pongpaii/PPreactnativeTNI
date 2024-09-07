@@ -10,6 +10,9 @@ import {
   Item,
 } from "react-navigation-header-buttons";
 
+
+
+
 const pressedal = () => {
   Alert.alert("Open Menu",`Hello REACT NATIVE `);
 };
@@ -31,7 +34,7 @@ const HomeScreen = ({}): React.JSX.Element => {
       headerTitleAlign: "center",
       headerLeft: () => (
         <HeaderButtons HeaderButtonComponent={MaterialHeaderButton}>
-          <Item title="menu" iconName="menu" onPress={pressedal}/>
+          <Item title="menu" iconName="menu" onPress={()=>{navigation.openDrawer();}}/>
         </HeaderButtons>
         
       ),
