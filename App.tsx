@@ -12,6 +12,7 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 import MenuScreen from "./screens/MenuScreen";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import ProductScreen from "./screens/ProductScreen";
+import DetailScreen from "./screens/DetailScreen";
 
 //create stack and drawer
 const Drawer = createDrawerNavigator();
@@ -72,7 +73,12 @@ function ProdstackSc() {
   
           headerTintColor: "white",
         }}
-      />
+      /><ProductStack.Screen
+      name="Details"
+      component={DetailScreen}
+     
+    />
+
     </ProductStack.Navigator>
   );
 }
