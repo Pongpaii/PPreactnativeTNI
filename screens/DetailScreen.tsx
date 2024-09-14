@@ -46,7 +46,7 @@ const DetailScreen = ():React.JSX.Element => {
       <>
     <Tile
                 imageSrc={{
-                    uri: 'https://pbs.twimg.com/amplify_video_thumb/1833798294000345089/img/SeKjyfJHHcWwboaZ.jpg',
+                    uri: 'https://preview.redd.it/take-a-rest-from-all-the-controversies-over-jjk-new-chapter-v0-gnba34tvgkod1.jpg?width=1080&crop=smart&auto=webp&s=325341fee9639c306c5a1e4aad3077d2e0a78671',
                     cache: 'force-cache',
                 }}
                 title={item.ch_title}
@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
   titleStyle: {
   fontSize: 20,
   fontWeight: 'bold',
-  color: 'brown', // สีขาวส าหรับชื่อ
+  color: 'red', // สีขาวส าหรับชื่อ
   },
   tileContainer: {
   borderRadius: 10, //ก าหนดให้มุมของ container มีความโค้งมน
@@ -99,6 +99,6 @@ const styles = StyleSheet.create({
   },
   captionStyle: {
   fontSize: 14,
-  color: 'blue' // สีขาวส าหรับวันที่
+  color: 'black' // สีขาวส าหรับวันที่
   },
   });
