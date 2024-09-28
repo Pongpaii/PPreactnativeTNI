@@ -14,7 +14,6 @@ import { selectAuthstate, setislogin } from "../auth/auth-slice";
 import { logout } from "../services/Auth-service";
 import { Text } from "@rneui/base";
 
-
 const MaterialHeaderButton = (props: any) => (
   // the `props` here come from <Item ... />
   // you may access them and pass something else to `HeaderButton` if you like
@@ -25,7 +24,7 @@ const MaterialHeaderButton = (props: any) => (
 const HomeScreen = ({}): React.JSX.Element => {
   const navigation = useNavigation<any>();
   const dispatch = useAppDispatch();
-  const {profile} =useAppSelector(selectAuthstate);
+  const { profile } = useAppSelector(selectAuthstate);
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -69,16 +68,14 @@ const HomeScreen = ({}): React.JSX.Element => {
   return (
     <View style={styles.container}>
       <MaterialIcon name="home" size={40} color={"pink"} />
-        {profile?(
-          <>
-        <Text h3 >Welcome {profile.name}</Text>
-        <Text > Email : {profile.email} ID : {profile.id}  Role : {profile.role}</Text>
+      {profile ? (
+        <>
+          <Text h3>Welcome {profile.name}</Text>
+          <Text>
+            Email : {profile.email} ID : {profile.id} Role : {profile.role}
+          </Text>
         </>
-
-        ):null
-        
-
-      }
+      ) : null}
       <Button title="About Us" onPress={gotoAbout} />
     </View>
   );

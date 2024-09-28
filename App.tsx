@@ -17,14 +17,79 @@ import LoginScreen from "./screens/LoginScreen";
 import Toast from "react-native-toast-message";
 import { Provider } from "react-redux";
 import { store } from "./redux-toolkit/store";
-import { useAppSelector ,useAppDispatch} from "./redux-toolkit/hooks";
-import { selectAuthstate,setislogin,setisloading, setprofile } from "./auth/auth-slice";
+import { useAppSelector, useAppDispatch } from "./redux-toolkit/hooks";
+import {
+  selectAuthstate,
+  setislogin,
+  setisloading,
+  setprofile,
+} from "./auth/auth-slice";
 import { getpf } from "./services/Auth-service";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import CameraScreen from "./screens/CameraScreen";
+import Ionicons from 'react-native-vector-icons/Ionicons';
+ 
 //create stack and drawer
 const Drawer = createDrawerNavigator();
 const HomeStack = createNativeStackNavigator();
 const ProductStack = createNativeStackNavigator();
 const LoginStack = createNativeStackNavigator();
+const CameraStack = createNativeStackNavigator();
+
+const Tab = createBottomTabNavigator();
+function TabContainer() {
+  return (
+    <Tab.Navigator
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, color, size }) => {
+          let iconName=""
+          if (route.name === "HomeStack") {
+            iconName = focused
+              ? "home"
+              : "home-outline";
+          } else if (route.name === "CameraStack") {
+            iconName = focused ? "camera" : "camera-outline";
+          }
+          // You can return any component that you like here!​
+          return <Ionicons name={iconName} size={size} color={color} />;
+        },
+        tabBarActiveTintColor: "tomato",
+        tabBarInactiveTintColor: "gray",
+        headerShown:false,
+        tabBarActiveBackgroundColor:'lightblue'
+      })}
+    >
+      <Tab.Screen
+        name="HomeStack"
+        component={HomestackSc}
+        options={{ tabBarLabel: "Home" }}
+      />
+      <Tab.Screen
+        name="CameraStack"
+        component={CameraStackScreen}
+        options={{ tabBarLabel: "กล้อง" }}
+      />
+    </Tab.Navigator>
+  );
+}
+
+function CameraStackScreen() {
+  return (
+    <CameraStack.Navigator
+      screenOptions={{
+        headerTitleStyle: { fontWeight: "bold" },
+      }}
+      initialRouteName="Camera"
+    >
+      {/*  แต่ละหน้า*/}
+      <CameraStack.Screen
+        name="Camera"
+        component={CameraScreen}
+        options={{ title: "Camera" }}
+      />
+    </CameraStack.Navigator>
+  );
+}
 
 function HomestackSc() {
   return (
@@ -93,80 +158,74 @@ function LoginstackSc() {
   );
 }
 
-const  App= (): React.JSX.Element =>{
+const App = (): React.JSX.Element => {
   //use appselector for pull state from store
   //create ตัวแปร
-  const {islogin,isLoading} = useAppSelector(selectAuthstate);
-  const dispatch= useAppDispatch();
-  const checklogin=async ()=>{
-    try{
+  const { islogin, isLoading } = useAppSelector(selectAuthstate);
+  const dispatch = useAppDispatch();
+  const checklogin = async () => {
+    try {
       dispatch(setisloading(true));
       const response = await getpf();
-      if(response?.status===200){
+      if (response?.status === 200) {
         dispatch(setprofile(response.data.data.user));
         dispatch(setislogin(true));
-      }
-      else{
+      } else {
         dispatch(setislogin(false));
       }
-    }catch(error){
+    } catch (error) {
       console.log(error);
-    }
-    finally{
+    } finally {
       dispatch(setisloading(false));
     }
-  }
+  };
   useFocusEffect(
-    React.useCallback(()=>{checklogin();},[])
-  )
+    React.useCallback(() => {
+      checklogin();
+    }, [])
+  );
 
-  if(isLoading){
-    return(
-      <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
-          <ActivityIndicator size='large' color='blue'/>
-
+  if (isLoading) {
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <ActivityIndicator size="large" color="blue" />
       </View>
     );
   }
   return (
     <>
- 
-          <HeaderButtonsProvider stackType="native">
-            {islogin ? (
-              <Drawer.Navigator
-                screenOptions={{ headerShown: false }}
-                drawerContent={(props) => <MenuScreen {...props} />}
-              >
-                <Drawer.Screen
-                  name="HomeStack"
-                  component={HomestackSc}
-                ></Drawer.Screen>
-                <Drawer.Screen
-                  name="ProductStack"
-                  component={ProdstackSc}
-                ></Drawer.Screen>
-              </Drawer.Navigator>
-            ) : (
-              <LoginstackSc />
-            )}
-          </HeaderButtonsProvider>
-     
+      <HeaderButtonsProvider stackType="native">
+        {islogin ? (
+          <Drawer.Navigator
+            screenOptions={{ headerShown: false }}
+            drawerContent={(props) => <MenuScreen {...props} />}
+          >
+            <Drawer.Screen name="Home" component={TabContainer}></Drawer.Screen>
+            <Drawer.Screen
+              name="ProductStack"
+              component={ProdstackSc}
+            ></Drawer.Screen>
+          </Drawer.Navigator>
+        ) : (
+          <LoginstackSc />
+        )}
+      </HeaderButtonsProvider>
+
       <Toast />
     </>
   );
-}
+};
 
 const styles = StyleSheet.create({});
-const AppWrapper = ()=>{
-  return(
-    <Provider store = {store}>
-         <SafeAreaProvider>
-         <NavigationContainer>
-          <App/>
-          </NavigationContainer>
-         </SafeAreaProvider>
-       
+const AppWrapper = () => {
+  return (
+    <Provider store={store}>
+      <SafeAreaProvider>
+        <NavigationContainer>
+          <App />
+        </NavigationContainer>
+      </SafeAreaProvider>
     </Provider>
   );
-}
+};
 export default AppWrapper;
