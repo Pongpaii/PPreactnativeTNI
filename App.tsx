@@ -1,10 +1,10 @@
 // Only import react-native-gesture-handler on native platforms
 import "react-native-gesture-handler";
-import { StyleSheet, Text, View } from "react-native";
+import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
 import React, { useState } from "react";
 import HomeScreen from "./screens/HomeScreen";
 import AboutScreen from "./screens/AboutScreen";
-import { NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer, useFocusEffect } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import CreatePostScreen from "./screens/CreatePostScreen";
 import { HeaderButtonsProvider } from "react-navigation-header-buttons";
@@ -15,7 +15,11 @@ import ProductScreen from "./screens/ProductScreen";
 import DetailScreen from "./screens/DetailScreen";
 import LoginScreen from "./screens/LoginScreen";
 import Toast from "react-native-toast-message";
-
+import { Provider } from "react-redux";
+import { store } from "./redux-toolkit/store";
+import { useAppSelector ,useAppDispatch} from "./redux-toolkit/hooks";
+import { selectAuthstate,setislogin,setisloading, setprofile } from "./auth/auth-slice";
+import { getpf } from "./services/Auth-service";
 //create stack and drawer
 const Drawer = createDrawerNavigator();
 const HomeStack = createNativeStackNavigator();
@@ -89,38 +93,80 @@ function LoginstackSc() {
   );
 }
 
-export default function App(): React.JSX.Element {
+const  App= (): React.JSX.Element =>{
+  //use appselector for pull state from store
   //create ตัวแปร
-  const [isLogin] = useState(false);
+  const {islogin,isLoading} = useAppSelector(selectAuthstate);
+  const dispatch= useAppDispatch();
+  const checklogin=async ()=>{
+    try{
+      dispatch(setisloading(true));
+      const response = await getpf();
+      if(response?.status===200){
+        dispatch(setprofile(response.data.data.user));
+        dispatch(setislogin(true));
+      }
+      else{
+        dispatch(setislogin(false));
+      }
+    }catch(error){
+      console.log(error);
+    }
+    finally{
+      dispatch(setisloading(false));
+    }
+  }
+  useFocusEffect(
+    React.useCallback(()=>{checklogin();},[])
+  )
+
+  if(isLoading){
+    return(
+      <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
+          <ActivityIndicator size='large' color='blue'/>
+
+      </View>
+    );
+  }
   return (
-  <>
-  
-  <SafeAreaProvider>
-      <NavigationContainer>
-        <HeaderButtonsProvider stackType="native">
-          {isLogin ? (
-            <Drawer.Navigator
-              screenOptions={{ headerShown: false }}
-              drawerContent={(props) => <MenuScreen {...props} />}
-            >
-              <Drawer.Screen
-                name="HomeStack"
-                component={HomestackSc}
-              ></Drawer.Screen>
-              <Drawer.Screen
-                name="ProductStack"
-                component={ProdstackSc}
-              ></Drawer.Screen>
-            </Drawer.Navigator>
-          ) : (
-            <LoginstackSc />
-          )}
-        </HeaderButtonsProvider>
-      </NavigationContainer>
-    </SafeAreaProvider>
-    <Toast/>
-  </>
+    <>
+ 
+          <HeaderButtonsProvider stackType="native">
+            {islogin ? (
+              <Drawer.Navigator
+                screenOptions={{ headerShown: false }}
+                drawerContent={(props) => <MenuScreen {...props} />}
+              >
+                <Drawer.Screen
+                  name="HomeStack"
+                  component={HomestackSc}
+                ></Drawer.Screen>
+                <Drawer.Screen
+                  name="ProductStack"
+                  component={ProdstackSc}
+                ></Drawer.Screen>
+              </Drawer.Navigator>
+            ) : (
+              <LoginstackSc />
+            )}
+          </HeaderButtonsProvider>
+     
+      <Toast />
+    </>
   );
 }
 
 const styles = StyleSheet.create({});
+const AppWrapper = ()=>{
+  return(
+    <Provider store = {store}>
+         <SafeAreaProvider>
+         <NavigationContainer>
+          <App/>
+          </NavigationContainer>
+         </SafeAreaProvider>
+       
+    </Provider>
+  );
+}
+export default AppWrapper;

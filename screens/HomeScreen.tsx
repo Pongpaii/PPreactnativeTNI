@@ -1,5 +1,4 @@
-
-import { View, Text, Button, StyleSheet ,Alert} from "react-native";
+import { View, Button, StyleSheet } from "react-native";
 import React, { useLayoutEffect } from "react";
 import MaterialIcon from "react-native-vector-icons/MaterialCommunityIcons";
 import { useNavigation } from "@react-navigation/native";
@@ -9,13 +8,12 @@ import {
   HeaderButtons,
   Item,
 } from "react-navigation-header-buttons";
+import { useAppDispatch, useAppSelector } from "../redux-toolkit/hooks";
+import { selectAuthstate, setislogin } from "../auth/auth-slice";
 
+import { logout } from "../services/Auth-service";
+import { Text } from "@rneui/base";
 
-
-
-const pressedal = () => {
-  Alert.alert("Open Menu",`Hello REACT NATIVE `);
-};
 
 const MaterialHeaderButton = (props: any) => (
   // the `props` here come from <Item ... />
@@ -26,6 +24,8 @@ const MaterialHeaderButton = (props: any) => (
 //navigation  and HEADER BAR 07092024
 const HomeScreen = ({}): React.JSX.Element => {
   const navigation = useNavigation<any>();
+  const dispatch = useAppDispatch();
+  const {profile} =useAppSelector(selectAuthstate);
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -34,17 +34,27 @@ const HomeScreen = ({}): React.JSX.Element => {
       headerTitleAlign: "center",
       headerLeft: () => (
         <HeaderButtons HeaderButtonComponent={MaterialHeaderButton}>
-          <Item title="menu" iconName="menu" onPress={()=>{navigation.openDrawer();}}/>
+          <Item
+            title="menu"
+            iconName="menu"
+            onPress={() => {
+              navigation.openDrawer();
+            }}
+          />
         </HeaderButtons>
-        
       ),
-      headerRight:()=>(
+      headerRight: () => (
         <HeaderButtons HeaderButtonComponent={MaterialHeaderButton}>
-        <Item title="logout" iconName="logout" onPress={()=>{  Alert.alert("Bye",`LOG OUT2! `);}}/>
-      </HeaderButtons>
-      )
-
-
+          <Item
+            title="logout"
+            iconName="logout"
+            onPress={async () => {
+              await logout();
+              dispatch(setislogin(false));
+            }}
+          />
+        </HeaderButtons>
+      ),
     });
   }, [navigation]);
 
@@ -59,7 +69,16 @@ const HomeScreen = ({}): React.JSX.Element => {
   return (
     <View style={styles.container}>
       <MaterialIcon name="home" size={40} color={"pink"} />
-      <Text style={styles.header}>HomeScreen</Text>
+        {profile?(
+          <>
+        <Text h3 >Welcome {profile.name}</Text>
+        <Text > Email : {profile.email} ID : {profile.id}  Role : {profile.role}</Text>
+        </>
+
+        ):null
+        
+
+      }
       <Button title="About Us" onPress={gotoAbout} />
     </View>
   );

@@ -1,15 +1,23 @@
-import { View, Text } from "react-native";
+import { View} from "react-native";
 import React from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { Header, ListItem,Icon } from "@rneui/base";
+import { useAppDispatch, useAppSelector } from "../redux-toolkit/hooks";
+import { selectAuthstate, setislogin } from "../auth/auth-slice";
 
+import { logout } from "../services/Auth-service";
+import { Text } from "@rneui/base";
 const MenuScreen = ({ navigation }: any): React.JSX.Element => {
+
+  const dispatch = useAppDispatch();
+
+  const {profile} =useAppSelector(selectAuthstate);
   return (
     <View>
       <Header
         barStyle="default"
         centerComponent={{
-          text: "THAI-NICHI",
+          text: profile?"Welcome , "+ profile.name:"",
           style: { color: "#fff" },
         }}
         containerStyle={{ width: "100%", height: 200 }}
